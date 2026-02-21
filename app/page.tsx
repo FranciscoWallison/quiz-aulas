@@ -10,7 +10,7 @@ export default function HomePage() {
           </div>
           <h1 className="text-3xl font-bold">Quiz Diagnóstico</h1>
           <p className="mt-2 text-gray-600">
-            Avaliação de nivelamento — 20 perguntas em 3 fases
+            Avaliação de nivelamento — 30 perguntas em 6 fases
           </p>
         </div>
 
@@ -44,6 +44,37 @@ export default function HomePage() {
               <span>
                 <strong className="text-gray-900">Fase 3 — Next.js</strong>:
                 App Router, SSR e Server Components (6 perguntas)
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-purple-700">
+                4
+              </span>
+              <span>
+                <strong className="text-gray-900">
+                  Fase 4 — Libs vs Frameworks
+                </strong>
+                : Bibliotecas, frameworks e ORM (4 perguntas)
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-100 text-xs font-bold text-cyan-700">
+                5
+              </span>
+              <span>
+                <strong className="text-gray-900">Fase 5 — SQL Básico</strong>:
+                Consultas SELECT, INSERT e WHERE (3 perguntas)
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-100 text-xs font-bold text-orange-700">
+                6
+              </span>
+              <span>
+                <strong className="text-gray-900">
+                  Fase 6 — Ecossistema Fullstack
+                </strong>
+                : Stacks, frameworks de mercado e tecnologias (3 perguntas)
               </span>
             </li>
           </ul>

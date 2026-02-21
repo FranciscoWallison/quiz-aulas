@@ -115,24 +115,12 @@ export default function Dashboard() {
             </div>
 
             <div className="mb-6 grid grid-cols-3 gap-3">
-              <ScoreCard
-                label="Fase 1"
-                score={selectedStudent.phase1Score}
-                total={questions.filter((q) => q.phase === 1).length}
-                color="green"
-              />
-              <ScoreCard
-                label="Fase 2"
-                score={selectedStudent.phase2Score}
-                total={questions.filter((q) => q.phase === 2).length}
-                color="yellow"
-              />
-              <ScoreCard
-                label="Fase 3"
-                score={selectedStudent.phase3Score}
-                total={questions.filter((q) => q.phase === 3).length}
-                color="red"
-              />
+              <ScoreCard label="Fase 1" score={selectedStudent.phase1Score} total={questions.filter((q) => q.phase === 1).length} color="green" />
+              <ScoreCard label="Fase 2" score={selectedStudent.phase2Score} total={questions.filter((q) => q.phase === 2).length} color="yellow" />
+              <ScoreCard label="Fase 3" score={selectedStudent.phase3Score} total={questions.filter((q) => q.phase === 3).length} color="red" />
+              <ScoreCard label="Fase 4" score={selectedStudent.phase4Score} total={questions.filter((q) => q.phase === 4).length} color="purple" />
+              <ScoreCard label="Fase 5" score={selectedStudent.phase5Score} total={questions.filter((q) => q.phase === 5).length} color="cyan" />
+              <ScoreCard label="Fase 6" score={selectedStudent.phase6Score} total={questions.filter((q) => q.phase === 6).length} color="orange" />
             </div>
 
             <h3 className="mb-3 font-semibold">Respostas detalhadas</h3>
@@ -271,9 +259,6 @@ export default function Dashboard() {
                 <thead>
                   <tr className="border-b border-gray-200 text-left text-gray-500">
                     <th className="pb-3 font-medium">Aluno</th>
-                    <th className="pb-3 font-medium">Fase 1</th>
-                    <th className="pb-3 font-medium">Fase 2</th>
-                    <th className="pb-3 font-medium">Fase 3</th>
                     <th className="pb-3 font-medium">Total</th>
                     <th className="pb-3 font-medium">Nível</th>
                     <th className="pb-3 font-medium">Hora</th>
@@ -287,18 +272,6 @@ export default function Dashboard() {
                       className="cursor-pointer border-b border-gray-100 transition-colors hover:bg-blue-50"
                     >
                       <td className="py-3 font-medium">{s.studentName}</td>
-                      <td className="py-3">
-                        {s.phase1Score}/
-                        {questions.filter((q) => q.phase === 1).length}
-                      </td>
-                      <td className="py-3">
-                        {s.phase2Score}/
-                        {questions.filter((q) => q.phase === 2).length}
-                      </td>
-                      <td className="py-3">
-                        {s.phase3Score}/
-                        {questions.filter((q) => q.phase === 3).length}
-                      </td>
                       <td className="py-3 font-semibold">
                         {s.totalScore}/{questions.length}
                       </td>
@@ -354,6 +327,9 @@ function ScoreCard({
     green: "bg-green-50 border-green-200 text-green-700",
     yellow: "bg-yellow-50 border-yellow-200 text-yellow-700",
     red: "bg-red-50 border-red-200 text-red-700",
+    purple: "bg-purple-50 border-purple-200 text-purple-700",
+    cyan: "bg-cyan-50 border-cyan-200 text-cyan-700",
+    orange: "bg-orange-50 border-orange-200 text-orange-700",
   };
 
   return (

@@ -323,4 +323,184 @@ export const questions: Question[] = [
     explanation:
       "O loading.tsx é um ficheiro especial do App Router que funciona como fallback do Suspense automático. Enquanto o page.tsx da mesma pasta está a carregar dados ou componentes, o Next.js exibe o conteúdo do loading.tsx (ex.: skeleton, spinner). É instant — o utilizador vê feedback visual imediatamente.",
   },
+
+  // ═══════════════════════════════════════
+  // FASE 4 — Bibliotecas vs. Frameworks
+  // ═══════════════════════════════════════
+  {
+    id: 21,
+    phase: 4,
+    phaseLabel: "Libs vs Frameworks",
+    question:
+      "Qual a principal diferença entre uma biblioteca e um framework?",
+    type: "multiple-choice",
+    options: [
+      "Não há diferença, são sinónimos",
+      "A biblioteca é chamada pelo seu código; o framework chama o seu código (inversão de controlo)",
+      "Frameworks são sempre mais rápidos que bibliotecas",
+      "Bibliotecas só existem no back-end",
+    ],
+    correctAnswer:
+      "A biblioteca é chamada pelo seu código; o framework chama o seu código (inversão de controlo)",
+    explanation:
+      "A diferença fundamental é a inversão de controlo (IoC). Com uma biblioteca (ex.: Axios, Lodash), VOCÊ decide quando e como chamar as funções. Com um framework (ex.: Next.js, Django), ELE define a estrutura e chama o seu código nos momentos certos. Você preenche os espaços que o framework disponibiliza.",
+  },
+  {
+    id: 22,
+    phase: 4,
+    phaseLabel: "Libs vs Frameworks",
+    question: "React é oficialmente classificado como:",
+    type: "multiple-choice",
+    options: [
+      "Um framework full-stack",
+      "Uma biblioteca (library) para construir interfaces",
+      "Um sistema operativo para web",
+      "Uma linguagem de programação",
+    ],
+    correctAnswer:
+      "Uma biblioteca (library) para construir interfaces",
+    explanation:
+      "React se define como 'a JavaScript library for building user interfaces'. Ele cuida apenas da camada de UI (componentes, renderização, estado). Não inclui roteamento, SSR, nem fetch de dados — por isso surgiram frameworks como Next.js e Remix que adicionam essas camadas em cima do React.",
+  },
+  {
+    id: 23,
+    phase: 4,
+    phaseLabel: "Libs vs Frameworks",
+    question:
+      "Qual destas opções é uma BIBLIOTECA e não um framework?",
+    type: "multiple-choice",
+    options: ["Next.js", "Angular", "Axios", "Django"],
+    correctAnswer: "Axios",
+    explanation:
+      "Axios é uma biblioteca HTTP — você a chama quando quer fazer um pedido (fetch). Next.js (React), Angular (TypeScript) e Django (Python) são frameworks que definem a estrutura da aplicação e controlam o fluxo de execução.",
+  },
+  {
+    id: 24,
+    phase: 4,
+    phaseLabel: "Libs vs Frameworks",
+    question:
+      "O que é um ORM (Object-Relational Mapping)?",
+    type: "multiple-choice",
+    options: [
+      "Um tipo de banco de dados NoSQL",
+      "Uma biblioteca que permite interagir com o banco de dados usando objetos em vez de SQL puro",
+      "Um framework de front-end",
+      "Um protocolo de comunicação entre servidores",
+    ],
+    correctAnswer:
+      "Uma biblioteca que permite interagir com o banco de dados usando objetos em vez de SQL puro",
+    explanation:
+      "Um ORM mapeia tabelas do banco para classes/objetos no código. Em vez de escrever 'SELECT * FROM users WHERE id = 1', escrevemos algo como User.findById(1). Exemplos: Prisma e Drizzle (JavaScript/TypeScript), SQLAlchemy (Python), Eloquent (PHP/Laravel).",
+  },
+
+  // ═══════════════════════════════════════
+  // FASE 5 — SQL Básico
+  // ═══════════════════════════════════════
+  {
+    id: 25,
+    phase: 5,
+    phaseLabel: "SQL Básico",
+    question: "Qual comando SQL retorna todos os registos da tabela 'users'?",
+    type: "multiple-choice",
+    options: [
+      "GET ALL FROM users",
+      "SELECT * FROM users",
+      "FETCH users ALL",
+      "READ * FROM users",
+    ],
+    correctAnswer: "SELECT * FROM users",
+    explanation:
+      "SELECT é o comando de leitura em SQL. O '*' significa 'todas as colunas' e FROM indica a tabela. É a consulta mais básica: SELECT (o quê) FROM (de onde). Os outros comandos não existem em SQL.",
+  },
+  {
+    id: 26,
+    phase: 5,
+    phaseLabel: "SQL Básico",
+    question:
+      "Qual comando SQL filtra apenas os utilizadores com idade maior que 18?",
+    type: "multiple-choice",
+    options: [
+      "SELECT * FROM users FILTER age > 18",
+      "SELECT * FROM users WHERE age > 18",
+      "SELECT * FROM users IF age > 18",
+      "SELECT * FROM users HAVING age > 18",
+    ],
+    correctAnswer: "SELECT * FROM users WHERE age > 18",
+    explanation:
+      "WHERE é a cláusula de filtro em SQL. FILTER e IF não existem nesse contexto. HAVING existe mas é usado apenas com GROUP BY para filtrar resultados agrupados, não registos individuais.",
+  },
+  {
+    id: 27,
+    phase: 5,
+    phaseLabel: "SQL Básico",
+    question: "Qual comando SQL insere um novo registo na tabela 'products'?",
+    type: "multiple-choice",
+    options: [
+      "ADD INTO products (name, price) VALUES ('Camisa', 29.90)",
+      "INSERT INTO products (name, price) VALUES ('Camisa', 29.90)",
+      "CREATE products (name, price) SET ('Camisa', 29.90)",
+      "PUT INTO products (name, price) VALUES ('Camisa', 29.90)",
+    ],
+    correctAnswer:
+      "INSERT INTO products (name, price) VALUES ('Camisa', 29.90)",
+    explanation:
+      "INSERT INTO é o comando SQL para adicionar registos. A sintaxe é: INSERT INTO tabela (colunas) VALUES (valores). ADD, CREATE (que cria tabelas, não registos) e PUT não são comandos de inserção de dados em SQL.",
+  },
+
+  // ═══════════════════════════════════════
+  // FASE 6 — Ecossistema Full-Stack e Mercado
+  // ═══════════════════════════════════════
+  {
+    id: 28,
+    phase: 6,
+    phaseLabel: "Ecossistema Fullstack",
+    question:
+      "Qual das seguintes combinações representa uma stack full-stack JavaScript moderna?",
+    type: "multiple-choice",
+    options: [
+      "React + Next.js + Prisma + PostgreSQL",
+      "HTML + CSS + jQuery",
+      "Photoshop + Figma + Canva",
+      "Python + Java + C++",
+    ],
+    correctAnswer: "React + Next.js + Prisma + PostgreSQL",
+    explanation:
+      "Uma stack full-stack JavaScript moderna inclui: React (UI) + Next.js (framework full-stack) + Prisma (ORM para banco de dados) + PostgreSQL (banco relacional). Tudo usando JavaScript/TypeScript do front ao back. jQuery é legado, as outras opções não são stacks web.",
+  },
+  {
+    id: 29,
+    phase: 6,
+    phaseLabel: "Ecossistema Fullstack",
+    question:
+      "Associe corretamente: qual framework pertence a qual linguagem?",
+    type: "multiple-choice",
+    options: [
+      "Django → Python, Laravel → PHP, Spring → Java, Next.js → JavaScript",
+      "Django → Java, Laravel → Python, Spring → PHP, Next.js → Ruby",
+      "Django → PHP, Laravel → Java, Spring → Python, Next.js → C#",
+      "Django → Ruby, Laravel → JavaScript, Spring → Python, Next.js → PHP",
+    ],
+    correctAnswer:
+      "Django → Python, Laravel → PHP, Spring → Java, Next.js → JavaScript",
+    explanation:
+      "Cada linguagem tem seus frameworks principais: Python → Django/FastAPI, PHP → Laravel, Java → Spring Boot, JavaScript/TypeScript → Next.js/Express/NestJS, Ruby → Rails, C# → ASP.NET. Saber isto ajuda a entender o mercado e escolher a stack certa para cada projeto.",
+  },
+  {
+    id: 30,
+    phase: 6,
+    phaseLabel: "Ecossistema Fullstack",
+    question:
+      "Qual a vantagem principal de usar a mesma linguagem (JavaScript/TypeScript) no front-end e no back-end?",
+    type: "multiple-choice",
+    options: [
+      "JavaScript é sempre mais rápido que outras linguagens",
+      "Partilha de código, tipos e lógica entre cliente e servidor, com uma única linguagem para toda a equipa",
+      "Não é possível usar JavaScript no back-end",
+      "Obriga a usar apenas MongoDB como banco de dados",
+    ],
+    correctAnswer:
+      "Partilha de código, tipos e lógica entre cliente e servidor, com uma única linguagem para toda a equipa",
+    explanation:
+      "A principal vantagem é a unificação: mesmos tipos TypeScript, mesmas validações (ex.: Zod) e mesma linguagem do front ao back. Isso reduz contexto switching, facilita code sharing e permite que uma equipa trabalhe em toda a stack. Não significa que JS é mais rápido, e funciona com qualquer banco (PostgreSQL, MySQL, MongoDB, etc.).",
+  },
 ];

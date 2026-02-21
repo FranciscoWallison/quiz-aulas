@@ -57,51 +57,47 @@ export default function QuizForm() {
   }
 
   function calculateResults(): Omit<QuizSubmission, "studentName" | "answers" | "submittedAt"> {
-    let phase1Score = 0;
-    let phase2Score = 0;
-    let phase3Score = 0;
-
-    const phase1Questions = questions.filter((q) => q.phase === 1);
-    const phase2Questions = questions.filter((q) => q.phase === 2);
-    const phase3Questions = questions.filter((q) => q.phase === 3);
-
-    for (const q of phase1Questions) {
-      const answer = answers.find((a) => a.questionId === q.id);
-      if (answer && q.correctAnswer && answer.answer === q.correctAnswer) {
-        phase1Score++;
+    function scorePhase(phase: number): number {
+      let score = 0;
+      for (const q of questions.filter((q) => q.phase === phase)) {
+        const answer = answers.find((a) => a.questionId === q.id);
+        if (answer && q.correctAnswer && answer.answer === q.correctAnswer) {
+          score++;
+        }
       }
+      return score;
     }
 
-    for (const q of phase2Questions) {
-      const answer = answers.find((a) => a.questionId === q.id);
-      if (answer && q.correctAnswer && answer.answer === q.correctAnswer) {
-        phase2Score++;
-      }
-    }
+    const phase1Score = scorePhase(1);
+    const phase2Score = scorePhase(2);
+    const phase3Score = scorePhase(3);
+    const phase4Score = scorePhase(4);
+    const phase5Score = scorePhase(5);
+    const phase6Score = scorePhase(6);
 
-    for (const q of phase3Questions) {
-      const answer = answers.find((a) => a.questionId === q.id);
-      if (answer && q.correctAnswer && answer.answer === q.correctAnswer) {
-        phase3Score++;
-      }
-    }
+    const totalScore =
+      phase1Score + phase2Score + phase3Score +
+      phase4Score + phase5Score + phase6Score;
 
-    const totalScore = phase1Score + phase2Score + phase3Score;
-
-    const phase1Percent = phase1Score / phase1Questions.length;
-    const phase2Percent = phase2Score / phase2Questions.length;
+    const phase1Percent = phase1Score / questions.filter((q) => q.phase === 1).length;
+    const phase2Percent = phase2Score / questions.filter((q) => q.phase === 2).length;
+    const phase3Percent = phase3Score / questions.filter((q) => q.phase === 3).length;
 
     let detectedLevel = "Iniciante";
     if (phase1Percent >= 0.6 && phase2Percent >= 0.6) {
-      detectedLevel = "Avançado";
-      if (phase3Score < phase3Questions.length * 0.5) {
-        detectedLevel = "Intermediário";
+      detectedLevel = "Intermediário";
+      if (phase3Percent >= 0.5) {
+        detectedLevel = "Avançado";
       }
     } else if (phase1Percent >= 0.6) {
       detectedLevel = "Básico";
     }
 
-    return { phase1Score, phase2Score, phase3Score, totalScore, detectedLevel };
+    return {
+      phase1Score, phase2Score, phase3Score,
+      phase4Score, phase5Score, phase6Score,
+      totalScore, detectedLevel,
+    };
   }
 
   async function handleSubmit() {
@@ -204,6 +200,9 @@ export default function QuizForm() {
                 1: "bg-green-100 text-green-700",
                 2: "bg-yellow-100 text-yellow-700",
                 3: "bg-red-100 text-red-700",
+                4: "bg-purple-100 text-purple-700",
+                5: "bg-cyan-100 text-cyan-700",
+                6: "bg-orange-100 text-orange-700",
               };
 
               return (
@@ -267,6 +266,9 @@ export default function QuizForm() {
     1: "bg-green-100 text-green-700",
     2: "bg-yellow-100 text-yellow-700",
     3: "bg-red-100 text-red-700",
+    4: "bg-purple-100 text-purple-700",
+    5: "bg-cyan-100 text-cyan-700",
+    6: "bg-orange-100 text-orange-700",
   };
 
   return (
