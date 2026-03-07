@@ -2,7 +2,7 @@ export type QuestionType = "multiple-choice" | "text";
 
 export type Question = {
   id: number;
-  phase: 1 | 2 | 3 | 4 | 5 | 6;
+  phase: 1 | 2 | 3 | 4 | 5 | 6 | 7;
   phaseLabel: string;
   question: string;
   type: QuestionType;
@@ -26,6 +26,7 @@ export type QuizSubmission = {
   phase4Score: number;
   phase5Score: number;
   phase6Score: number;
+  phase7Score: number;
   totalScore: number;
   detectedLevel: string;
   submittedAt: string;

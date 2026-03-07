@@ -29,17 +29,30 @@ export default function ResultadoView() {
     );
   }
 
-  const phaseTotals = {
+  const phaseTotals: Record<number, number> = {
     1: questions.filter((q) => q.phase === 1).length,
     2: questions.filter((q) => q.phase === 2).length,
     3: questions.filter((q) => q.phase === 3).length,
     4: questions.filter((q) => q.phase === 4).length,
     5: questions.filter((q) => q.phase === 5).length,
     6: questions.filter((q) => q.phase === 6).length,
+    7: questions.filter((q) => q.phase === 7).length,
   };
-  const totalPercent = Math.round(
-    (submission.totalScore / questions.length) * 100
+
+  // Determinar quais fases o aluno respondeu (para não mostrar fases zeradas de outro quiz)
+  const answeredPhases = new Set<number>();
+  for (const answer of submission.answers) {
+    const q = questions.find((q) => q.id === answer.questionId);
+    if (q) answeredPhases.add(q.phase);
+  }
+
+  const answeredQuestionCount = Array.from(answeredPhases).reduce(
+    (sum, phase) => sum + phaseTotals[phase],
+    0
   );
+  const totalPercent = answeredQuestionCount > 0
+    ? Math.round((submission.totalScore / answeredQuestionCount) * 100)
+    : 0;
 
   const levelConfig: Record<string, { color: string; bg: string; message: string }> = {
     Iniciante: {
@@ -92,7 +105,7 @@ export default function ResultadoView() {
             <div className="text-right">
               <p className="text-3xl font-bold">{totalPercent}%</p>
               <p className="text-sm text-gray-500">
-                {submission.totalScore}/{questions.length} acertos
+                {submission.totalScore}/{answeredQuestionCount} acertos
               </p>
             </div>
           </div>
@@ -101,12 +114,13 @@ export default function ResultadoView() {
 
         {/* Pontuação por fase */}
         <div className="mb-6 grid grid-cols-3 gap-3">
-          <PhaseCard label="Fase 1" subtitle="Fundamentos" score={submission.phase1Score} total={phaseTotals[1]} color="green" />
-          <PhaseCard label="Fase 2" subtitle="JS/TS e React" score={submission.phase2Score} total={phaseTotals[2]} color="yellow" />
-          <PhaseCard label="Fase 3" subtitle="Next.js" score={submission.phase3Score} total={phaseTotals[3]} color="blue" />
-          <PhaseCard label="Fase 4" subtitle="Libs vs Frameworks" score={submission.phase4Score} total={phaseTotals[4]} color="purple" />
-          <PhaseCard label="Fase 5" subtitle="SQL Básico" score={submission.phase5Score} total={phaseTotals[5]} color="cyan" />
-          <PhaseCard label="Fase 6" subtitle="Ecossistema" score={submission.phase6Score} total={phaseTotals[6]} color="orange" />
+          {answeredPhases.has(1) && <PhaseCard label="Fase 1" subtitle="Fundamentos" score={submission.phase1Score} total={phaseTotals[1]} color="green" />}
+          {answeredPhases.has(2) && <PhaseCard label="Fase 2" subtitle="JS/TS e React" score={submission.phase2Score} total={phaseTotals[2]} color="yellow" />}
+          {answeredPhases.has(3) && <PhaseCard label="Fase 3" subtitle="Next.js" score={submission.phase3Score} total={phaseTotals[3]} color="blue" />}
+          {answeredPhases.has(4) && <PhaseCard label="Fase 4" subtitle="Libs vs Frameworks" score={submission.phase4Score} total={phaseTotals[4]} color="purple" />}
+          {answeredPhases.has(5) && <PhaseCard label="Fase 5" subtitle="SQL Básico" score={submission.phase5Score} total={phaseTotals[5]} color="cyan" />}
+          {answeredPhases.has(6) && <PhaseCard label="Fase 6" subtitle="Ecossistema" score={submission.phase6Score} total={phaseTotals[6]} color="orange" />}
+          {answeredPhases.has(7) && <PhaseCard label="Fase 7" subtitle="Web & Backend" score={submission.phase7Score} total={phaseTotals[7]} color="pink" />}
         </div>
 
         {/* Botão para ver detalhes */}
@@ -129,7 +143,8 @@ export default function ResultadoView() {
               { phase: 4, label: "Libs vs Frameworks" },
               { phase: 5, label: "SQL Básico" },
               { phase: 6, label: "Ecossistema Fullstack" },
-            ].map(({ phase, label }) => (
+              { phase: 7, label: "Conceitos Web & Backend" },
+            ].filter(({ phase }) => answeredPhases.has(phase)).map(({ phase, label }) => (
               <div key={phase}>
                 <h3 className="mb-3 text-lg font-bold text-gray-700">
                   Fase {phase} — {label}
@@ -263,6 +278,7 @@ function PhaseCard({
     purple: "border-purple-200 bg-purple-50 text-purple-700",
     cyan: "border-cyan-200 bg-cyan-50 text-cyan-700",
     orange: "border-orange-200 bg-orange-50 text-orange-700",
+    pink: "border-pink-200 bg-pink-50 text-pink-700",
   };
 
   return (

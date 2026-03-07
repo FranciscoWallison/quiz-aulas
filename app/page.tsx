@@ -85,12 +85,20 @@ export default function HomePage() {
           aula ao nível da turma. Responda com honestidade.
         </div>
 
-        <Link
-          href="/quiz"
-          className="inline-block w-full rounded-lg bg-blue-600 px-6 py-3 text-lg font-semibold text-white transition-colors hover:bg-blue-700"
-        >
-          Começar Quiz
-        </Link>
+        <div className="space-y-3">
+          <Link
+            href="/quiz"
+            className="inline-block w-full rounded-lg bg-blue-600 px-6 py-3 text-lg font-semibold text-white transition-colors hover:bg-blue-700"
+          >
+            Começar Quiz (Fases 1-6)
+          </Link>
+          <Link
+            href="/quiz2"
+            className="inline-block w-full rounded-lg bg-pink-600 px-6 py-3 text-lg font-semibold text-white transition-colors hover:bg-pink-700"
+          >
+            Quiz 2 — Conceitos Web &amp; Backend (13 perguntas)
+          </Link>
+        </div>
       </div>
     </main>
   );

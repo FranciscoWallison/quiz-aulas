@@ -503,4 +503,241 @@ export const questions: Question[] = [
     explanation:
       "A principal vantagem é a unificação: mesmos tipos TypeScript, mesmas validações (ex.: Zod) e mesma linguagem do front ao back. Isso reduz contexto switching, facilita code sharing e permite que uma equipa trabalhe em toda a stack. Não significa que JS é mais rápido, e funciona com qualquer banco (PostgreSQL, MySQL, MongoDB, etc.).",
   },
+
+  // ═══════════════════════════════════════
+  // FASE 7 — Conceitos Web & Backend
+  // ═══════════════════════════════════════
+  {
+    id: 31,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question: "O que é a arquitetura cliente-servidor?",
+    type: "multiple-choice",
+    options: [
+      "Um padrão onde o cliente (browser) faz pedidos e o servidor processa e devolve respostas",
+      "Um tipo de banco de dados distribuído",
+      "Uma linguagem de programação para redes",
+      "Um protocolo exclusivo para transferência de ficheiros",
+    ],
+    correctAnswer:
+      "Um padrão onde o cliente (browser) faz pedidos e o servidor processa e devolve respostas",
+    explanation:
+      "Na arquitetura cliente-servidor, o cliente (ex.: browser, app mobile) envia pedidos (requests) ao servidor, que processa a lógica, acede ao banco de dados se necessário, e devolve uma resposta (response). É o modelo base da web: o browser pede uma página, o servidor devolve o HTML/JSON.",
+  },
+  {
+    id: 32,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question:
+      "Quando dizemos que uma chamada do frontend ao backend é assíncrona, o que isso significa?",
+    type: "multiple-choice",
+    options: [
+      "O frontend fica bloqueado até receber a resposta do servidor",
+      "O frontend continua a executar outras tarefas enquanto aguarda a resposta do servidor",
+      "A resposta do servidor chega sempre instantaneamente",
+      "O frontend e o backend estão na mesma máquina",
+    ],
+    correctAnswer:
+      "O frontend continua a executar outras tarefas enquanto aguarda a resposta do servidor",
+    explanation:
+      "Uma chamada assíncrona permite que o frontend não fique 'congelado' enquanto espera a resposta. O código continua a executar (o utilizador pode interagir com a página), e quando a resposta chega, um callback/Promise trata o resultado. É por isso que usamos async/await ou .then() com fetch().",
+  },
+  {
+    id: 33,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question:
+      "Qual a diferença entre query parameters e path parameters numa URL?",
+    type: "multiple-choice",
+    codeBlock:
+      "GET /users/42          → path parameter (id=42)\nGET /users?role=admin   → query parameter (role=admin)",
+    options: [
+      "Path parameters fazem parte do caminho da URL (ex.: /users/42), query parameters vão após o '?' (ex.: /users?role=admin)",
+      "Não há diferença, são sinónimos",
+      "Query parameters só funcionam com o método POST",
+      "Path parameters são usados exclusivamente para filtrar resultados",
+    ],
+    correctAnswer:
+      "Path parameters fazem parte do caminho da URL (ex.: /users/42), query parameters vão após o '?' (ex.: /users?role=admin)",
+    explanation:
+      "Path parameters identificam um recurso específico na URL (GET /users/42 → utilizador com id 42). Query parameters filtram ou modificam o pedido (GET /users?role=admin&page=2). Ambos funcionam com qualquer método HTTP (GET, POST, PUT, DELETE), mas são mais comuns em GET.",
+  },
+  {
+    id: 34,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question:
+      "Ao analisar um schema SQL com as tabelas 'Post', 'Influencer' e 'Post_Influencer', qual é a relação entre Post e Influencer?",
+    type: "multiple-choice",
+    codeBlock:
+      "Post (id, title, content)\nInfluencer (id, name, followers)\nPost_Influencer (post_id, influencer_id)  ← tabela intermediária",
+    options: [
+      "Relação 1 para 1 (um post pertence a um influencer)",
+      "Relação 1 para N (um influencer tem vários posts)",
+      "Relação N para N (muitos posts para muitos influencers, via tabela intermediária)",
+      "Não há relação entre as tabelas",
+    ],
+    correctAnswer:
+      "Relação N para N (muitos posts para muitos influencers, via tabela intermediária)",
+    explanation:
+      "A tabela 'Post_Influencer' é uma tabela intermediária (junction table) que liga Post e Influencer numa relação muitos-para-muitos (N:N). Isso significa que um post pode ter vários influencers associados, e um influencer pode estar associado a vários posts. A tabela intermediária guarda as chaves estrangeiras (post_id, influencer_id).",
+  },
+  {
+    id: 35,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question: "O que são seletores CSS?",
+    type: "multiple-choice",
+    options: [
+      "Padrões usados para selecionar e aplicar estilos a elementos HTML específicos",
+      "Funções JavaScript para manipular o DOM",
+      "Tags HTML especiais para criar formulários",
+      "Comandos SQL para filtrar dados",
+    ],
+    correctAnswer:
+      "Padrões usados para selecionar e aplicar estilos a elementos HTML específicos",
+    explanation:
+      "Seletores CSS indicam quais elementos HTML recebem determinados estilos. Exemplos: 'p' seleciona todos os parágrafos, '.card' seleciona elementos com class=\"card\", '#header' seleciona o elemento com id=\"header\", 'div > p' seleciona parágrafos filhos diretos de divs.",
+  },
+  {
+    id: 36,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question: "Por que o CSS é chamado de 'Cascading Style Sheets'?",
+    type: "multiple-choice",
+    options: [
+      "Porque os estilos são aplicados em cascata: regras mais específicas sobrepõem as mais gerais, seguindo uma ordem de prioridade",
+      "Porque o CSS só funciona com animações em cascata",
+      "Porque as folhas de estilo caem do topo da página para baixo",
+      "Porque o CSS precisa ser escrito em ordem alfabética",
+    ],
+    correctAnswer:
+      "Porque os estilos são aplicados em cascata: regras mais específicas sobrepõem as mais gerais, seguindo uma ordem de prioridade",
+    explanation:
+      "O 'C' de CSS refere-se à cascata: quando múltiplas regras se aplicam ao mesmo elemento, o browser decide qual ganha com base na especificidade (inline > id > class > tag), na ordem de declaração (última ganha) e na origem (autor > user agent). Isso permite que estilos gerais sejam sobrescritos por estilos mais específicos.",
+  },
+  {
+    id: 37,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question: "O que é a DOM (Document Object Model)?",
+    type: "multiple-choice",
+    options: [
+      "Uma representação em árvore do documento HTML que permite ao JavaScript ler e modificar a página",
+      "Um banco de dados usado pelo browser para guardar cookies",
+      "Uma linguagem de programação para criar animações",
+      "Um protocolo de rede para transferir ficheiros",
+    ],
+    correctAnswer:
+      "Uma representação em árvore do documento HTML que permite ao JavaScript ler e modificar a página",
+    explanation:
+      "A DOM é uma representação estruturada (em forma de árvore) do HTML que o browser cria. Cada tag HTML vira um 'nó' na árvore. O JavaScript pode aceder e manipular esses nós (document.getElementById, document.querySelector), alterando conteúdo, estilos e estrutura da página dinamicamente.",
+  },
+  {
+    id: 38,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question:
+      "Como funciona, de forma simplificada, um fluxo de autenticação entre frontend e backend?",
+    type: "multiple-choice",
+    options: [
+      "O frontend envia credenciais ao backend, que valida e devolve um token (ex.: JWT); o frontend envia esse token nos pedidos seguintes para provar identidade",
+      "O frontend guarda a senha do utilizador e compara localmente",
+      "O backend envia a senha de volta ao frontend para conferência",
+      "A autenticação é feita exclusivamente pelo browser sem envolver o servidor",
+    ],
+    correctAnswer:
+      "O frontend envia credenciais ao backend, que valida e devolve um token (ex.: JWT); o frontend envia esse token nos pedidos seguintes para provar identidade",
+    explanation:
+      "Fluxo típico: 1) Utilizador digita email/senha no frontend. 2) Frontend envia POST /login ao backend. 3) Backend valida credenciais no banco de dados. 4) Se válidas, gera um token (ex.: JWT) e devolve ao frontend. 5) Frontend guarda o token e envia-o no header Authorization dos pedidos seguintes. 6) Backend verifica o token em cada pedido protegido.",
+  },
+  {
+    id: 39,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question:
+      "Qual é o papel do arquivo package.json numa aplicação JavaScript?",
+    type: "multiple-choice",
+    options: [
+      "Definir as dependências, scripts, nome e configuração do projeto",
+      "Guardar o código-fonte compilado da aplicação",
+      "Armazenar as variáveis de ambiente do projeto",
+      "Definir as rotas da API REST",
+    ],
+    correctAnswer:
+      "Definir as dependências, scripts, nome e configuração do projeto",
+    explanation:
+      "O package.json é o manifesto do projeto Node.js/JavaScript. Contém: nome e versão do projeto, lista de dependências (dependencies) e de desenvolvimento (devDependencies), scripts executáveis (npm run dev, npm run build), e outras configurações. É criado com 'npm init' e atualizado automaticamente ao instalar pacotes com 'npm install'.",
+  },
+  {
+    id: 40,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question:
+      "O que são os status codes HTTP e quais são os grupos principais?",
+    type: "multiple-choice",
+    options: [
+      "Códigos numéricos que indicam o resultado de um pedido HTTP: 2xx (sucesso), 3xx (redirecionamento), 4xx (erro do cliente), 5xx (erro do servidor)",
+      "Códigos usados exclusivamente para autenticação de utilizadores",
+      "Números aleatórios gerados pelo servidor para cada pedido",
+      "Identificadores únicos de cada página web",
+    ],
+    correctAnswer:
+      "Códigos numéricos que indicam o resultado de um pedido HTTP: 2xx (sucesso), 3xx (redirecionamento), 4xx (erro do cliente), 5xx (erro do servidor)",
+    explanation:
+      "Status codes indicam o que aconteceu com o pedido. Exemplos: 200 OK (sucesso), 201 Created (recurso criado), 301 Moved (redirecionamento permanente), 400 Bad Request (pedido inválido), 401 Unauthorized (não autenticado), 404 Not Found (recurso não existe), 500 Internal Server Error (erro no servidor).",
+  },
+  {
+    id: 41,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question: "O que são variáveis de ambiente numa aplicação?",
+    type: "multiple-choice",
+    options: [
+      "Valores configuráveis externos ao código que armazenam dados sensíveis ou que mudam entre ambientes (ex.: chaves de API, URLs de banco de dados)",
+      "Variáveis JavaScript que só existem dentro de funções",
+      "Constantes definidas diretamente no HTML",
+      "Nomes de ficheiros CSS importados no projeto",
+    ],
+    correctAnswer:
+      "Valores configuráveis externos ao código que armazenam dados sensíveis ou que mudam entre ambientes (ex.: chaves de API, URLs de banco de dados)",
+    explanation:
+      "Variáveis de ambiente (.env) guardam configurações que não devem estar no código-fonte: chaves de API, senhas de banco de dados, URLs que mudam entre dev/staging/produção. Em Node.js, acedemos com process.env.NOME_DA_VARIAVEL. Em Next.js, variáveis prefixadas com NEXT_PUBLIC_ ficam disponíveis no browser.",
+  },
+  {
+    id: 42,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question:
+      "O que é um framework no contexto do desenvolvimento de software?",
+    type: "multiple-choice",
+    options: [
+      "Uma estrutura pré-definida que dita a arquitetura da aplicação e controla o fluxo de execução do seu código",
+      "Um editor de código como o VS Code",
+      "Uma linguagem de programação compilada",
+      "Um servidor web físico",
+    ],
+    correctAnswer:
+      "Uma estrutura pré-definida que dita a arquitetura da aplicação e controla o fluxo de execução do seu código",
+    explanation:
+      "Um framework fornece a estrutura base do projeto: define onde colocar ficheiros, como organizar o código e quando o seu código é executado. É o framework que chama o seu código (inversão de controlo). Exemplos: Next.js, Angular, Django, Laravel, Spring Boot. Você segue as regras e convenções do framework.",
+  },
+  {
+    id: 43,
+    phase: 7,
+    phaseLabel: "Conceitos Web & Backend",
+    question:
+      "O que é uma biblioteca (library) no contexto do desenvolvimento de software?",
+    type: "multiple-choice",
+    options: [
+      "Um conjunto de funções reutilizáveis que o seu código chama quando necessário, sem impor estrutura ao projeto",
+      "Um tipo de banco de dados para guardar código",
+      "Um framework que controla a execução do seu código",
+      "Um sistema operativo para servidores web",
+    ],
+    correctAnswer:
+      "Um conjunto de funções reutilizáveis que o seu código chama quando necessário, sem impor estrutura ao projeto",
+    explanation:
+      "Uma biblioteca é um conjunto de ferramentas que VOCÊ chama quando precisa, sem ditar a estrutura do projeto. Você mantém o controlo do fluxo. Exemplos: Axios (HTTP requests), Lodash (utilitários), Zod (validação), date-fns (datas). A diferença para um framework é quem tem o controlo: na biblioteca, é o seu código.",
+  },
 ];

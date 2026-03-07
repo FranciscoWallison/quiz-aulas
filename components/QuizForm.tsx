@@ -9,7 +9,7 @@ import type { QuizAnswer, QuizSubmission } from "@/types/quiz";
 
 type Step = "name" | "quiz" | "review";
 
-export default function QuizForm() {
+export default function QuizForm({ phases = [1, 2, 3, 4, 5, 6] }: { phases?: number[] }) {
   const router = useRouter();
   const [step, setStep] = useState<Step>("name");
   const [studentName, setStudentName] = useState("");
@@ -17,8 +17,9 @@ export default function QuizForm() {
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const question = questions[currentQuestion];
-  const totalQuestions = questions.length;
+  const filteredQuestions = questions.filter((q) => phases.includes(q.phase));
+  const question = filteredQuestions[currentQuestion];
+  const totalQuestions = filteredQuestions.length;
   const progress = ((currentQuestion + 1) / totalQuestions) * 100;
 
   const currentAnswer = answers.find(
@@ -74,28 +75,46 @@ export default function QuizForm() {
     const phase4Score = scorePhase(4);
     const phase5Score = scorePhase(5);
     const phase6Score = scorePhase(6);
+    const phase7Score = scorePhase(7);
 
     const totalScore =
       phase1Score + phase2Score + phase3Score +
-      phase4Score + phase5Score + phase6Score;
-
-    const phase1Percent = phase1Score / questions.filter((q) => q.phase === 1).length;
-    const phase2Percent = phase2Score / questions.filter((q) => q.phase === 2).length;
-    const phase3Percent = phase3Score / questions.filter((q) => q.phase === 3).length;
+      phase4Score + phase5Score + phase6Score + phase7Score;
 
     let detectedLevel = "Iniciante";
-    if (phase1Percent >= 0.6 && phase2Percent >= 0.6) {
-      detectedLevel = "Intermediário";
-      if (phase3Percent >= 0.5) {
-        detectedLevel = "Avançado";
+
+    if (phases.includes(1) && phases.includes(2) && phases.includes(3)) {
+      // Lógica de nível para o quiz principal (fases 1-6)
+      const phase1Total = questions.filter((q) => q.phase === 1).length;
+      const phase2Total = questions.filter((q) => q.phase === 2).length;
+      const phase3Total = questions.filter((q) => q.phase === 3).length;
+      const phase1Percent = phase1Total > 0 ? phase1Score / phase1Total : 0;
+      const phase2Percent = phase2Total > 0 ? phase2Score / phase2Total : 0;
+      const phase3Percent = phase3Total > 0 ? phase3Score / phase3Total : 0;
+
+      if (phase1Percent >= 0.6 && phase2Percent >= 0.6) {
+        detectedLevel = "Intermediário";
+        if (phase3Percent >= 0.5) {
+          detectedLevel = "Avançado";
+        }
+      } else if (phase1Percent >= 0.6) {
+        detectedLevel = "Básico";
       }
-    } else if (phase1Percent >= 0.6) {
-      detectedLevel = "Básico";
+    } else {
+      // Lógica de nível baseada em percentagem total para outros quizzes
+      const percent = filteredQuestions.length > 0 ? totalScore / filteredQuestions.length : 0;
+      if (percent >= 0.8) {
+        detectedLevel = "Avançado";
+      } else if (percent >= 0.6) {
+        detectedLevel = "Intermediário";
+      } else if (percent >= 0.4) {
+        detectedLevel = "Básico";
+      }
     }
 
     return {
       phase1Score, phase2Score, phase3Score,
-      phase4Score, phase5Score, phase6Score,
+      phase4Score, phase5Score, phase6Score, phase7Score,
       totalScore, detectedLevel,
     };
   }
@@ -173,7 +192,7 @@ export default function QuizForm() {
 
   // ─── TELA: REVISÃO ──────────────────────────
   if (step === "review") {
-    const unanswered = questions.filter(
+    const unanswered = filteredQuestions.filter(
       (q) => !answers.find((a) => a.questionId === q.id)
     );
 
@@ -194,7 +213,7 @@ export default function QuizForm() {
           )}
 
           <div className="space-y-3">
-            {questions.map((q, index) => {
+            {filteredQuestions.map((q, index) => {
               const answer = answers.find((a) => a.questionId === q.id);
               const phaseColors: Record<number, string> = {
                 1: "bg-green-100 text-green-700",
@@ -203,6 +222,7 @@ export default function QuizForm() {
                 4: "bg-purple-100 text-purple-700",
                 5: "bg-cyan-100 text-cyan-700",
                 6: "bg-orange-100 text-orange-700",
+                7: "bg-pink-100 text-pink-700",
               };
 
               return (
@@ -269,6 +289,7 @@ export default function QuizForm() {
     4: "bg-purple-100 text-purple-700",
     5: "bg-cyan-100 text-cyan-700",
     6: "bg-orange-100 text-orange-700",
+    7: "bg-pink-100 text-pink-700",
   };
 
   return (
@@ -367,7 +388,7 @@ export default function QuizForm() {
 
       {/* Indicador de perguntas */}
       <div className="mt-6 flex flex-wrap justify-center gap-1.5">
-        {questions.map((q, index) => {
+        {filteredQuestions.map((q, index) => {
           const answered = answers.find((a) => a.questionId === q.id);
           const isCurrent = index === currentQuestion;
 

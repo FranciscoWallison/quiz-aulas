@@ -121,6 +121,7 @@ export default function Dashboard() {
               <ScoreCard label="Fase 4" score={selectedStudent.phase4Score} total={questions.filter((q) => q.phase === 4).length} color="purple" />
               <ScoreCard label="Fase 5" score={selectedStudent.phase5Score} total={questions.filter((q) => q.phase === 5).length} color="cyan" />
               <ScoreCard label="Fase 6" score={selectedStudent.phase6Score} total={questions.filter((q) => q.phase === 6).length} color="orange" />
+              <ScoreCard label="Fase 7" score={selectedStudent.phase7Score} total={questions.filter((q) => q.phase === 7).length} color="pink" />
             </div>
 
             <h3 className="mb-3 font-semibold">Respostas detalhadas</h3>
@@ -330,6 +331,7 @@ function ScoreCard({
     purple: "bg-purple-50 border-purple-200 text-purple-700",
     cyan: "bg-cyan-50 border-cyan-200 text-cyan-700",
     orange: "bg-orange-50 border-orange-200 text-orange-700",
+    pink: "bg-pink-50 border-pink-200 text-pink-700",
   };
 
   return (
